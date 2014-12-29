@@ -1,0 +1,151 @@
+a {
+	color: #999999;
+}
+
+a:hover {
+	color: #7cb91c;
+}
+
+.grey {
+	background-color:#7cb91c;
+}		
+
+.grey:hover {
+	background-color:#222222;
+}
+
+.color {
+	background-color:#222222;
+}
+
+.color:hover {
+	background-color:#7cb91c;
+}
+
+.parallax-overlay.parallax-background-color {
+	background-color:rgba(124,185,28,0.90);
+}
+
+span.text-color {
+	color:#7cb91c;
+}
+
+.bar li span { 
+	background-color:#7cb91c;
+}
+
+.service-item.text-right .icon-stack {
+	color:#7cb91c;
+}
+
+.service-item.text-left .icon-stack {
+	color:#7cb91c;
+}
+
+ul.technology li i {
+	color:#7cb91c;
+}
+
+ul.technology li:hover {
+	background-color:#7cb91c;
+}
+	
+ul.technology li:hover:before {
+	border-color:#fff #fff #5c9206 #5c9206;
+}
+	
+#filters ul li a:hover h5, #filters ul li a.active h5 {
+	background-color:#7cb91c;
+}
+
+.project-overlay {
+	background-color:#7cb91c;
+}
+
+#contact-formular input[type="submit"]	{
+	background:#7cb91c;
+}
+
+#contact-formular input[type="submit"]:hover	{
+	background:#222222;
+}
+
+#menu_top {
+	background-color:#7cb91c;
+}
+
+.blog-title a {
+	color:#222222;
+}
+
+.blog-title a:hover {
+	color:#7cb91c;
+}
+
+.blog-type {
+	background-color:#7cb91c;
+}
+
+.post-quote {
+	background-color:#7cb91c;
+}
+
+.post-quote:hover {
+	background-color:#222222;
+}
+
+#sidebar .widget_categories li a:hover {
+	color: #7cb91c;
+}
+
+#sidebar .recent-posts li a:hover {
+	color: #7cb91c;
+}
+
+#sidebar .tags a:hover {
+	background-color:#7cb91c;
+}
+
+#sidebar .widget_archives li a:hover {
+	color: #7cb91c;
+}
+
+.inner-navigation li a:hover span {
+	background-color:#222222;
+}
+
+.inner-navigation li a span {
+	background-color:#7cb91c;
+}
+
+.accordion dt.accordion-active span.accordion-status {
+	background-color:#7cb91c;
+}
+
+.toggle-active {
+	background: #7cb91c;
+}
+
+ul.tabs .tab-active a { 
+	background-color: #7cb91c; 
+}
+
+.dropcap-normal {
+	color: #7cb91c;
+}
+
+.dropcap.dark {
+	background-color: #7cb91c;
+}
+
+.counters i {
+	color: #7cb91c;
+}
+
+.icons-ul li i{
+	color:#7cb91c;
+}
+
+.the-icons li i {
+	color: #7cb91c;
+}
