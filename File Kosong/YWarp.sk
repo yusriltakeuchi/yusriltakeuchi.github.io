@@ -1,0 +1,382 @@
+﻿#+--------------------------------------------------+
+#	Skript Name: Yurani Warp
+#	Version: V1.0
+#	Author: Yusril Takeuchi
+#
+#	Skript untuk Warping dengan sistem Add otomatis
+#	yang memudahkan bagi setiap penggunanya tanpa harus
+#	menyeting manual didalam skript.
+#	Player hanya perlu melakukan command /ywarp create <name> <deskripsi>
+#	untuk membuat sebuah Warp!
+#	Terdapat sebuah Warp List dengan tampilan yang elegan dan berbeda
+#	dari kebanyakan skript warp lainnya. Yaitu menggunakan GUI System!
+#
+#	Permission:
+#	ywarp.create
+#	ywarp.remove
+#	ywarp.reload
+#	ywarp.helpadm
+#	ywarp.list
+#	ywarp.tp
+#	ywarp.help
+#
+#	Features:
+#	- Easy to use
+#	- Advanced Warping System
+#	- Auto Add Icon In Warp List!
+#	- No Coding Requirements!
+#	- New Warp List Style!
+#	- Allow Description Warp!
+#	- Allow Visitor Warp!
+#	- Allow Warp Location
+#	- Add Hook System!
+#
+#	Addon:
+#	- ExtrasSk
+#	- WildSkript
+#	- SkQuery
+#
+#	Cara Install:
+#	1.Masukan file ini di directory .../plugins/skript/script/
+#	2.Reload dengan menggunakan command /skript reload YWarp
+#	3.Gunakan command /ywarp help untuk mengakses player command
+#
+#	Command:
+#	- /ywarp help
+#	- /ywarp create
+#	- /ywarp remove
+#	- /ywarp reload
+#	- /ywarp tp
+#	- /ywarp list
+#
+#	Changelog Version:
+#	V1.0:
+#	- Release Skript
+#
+#+-------------------------------------------------------------------------------------------------------------+
+#                                            =Author Note=
+#	Jika anda ingin mengedit skript ini silahkan, tapi SAYA TIDAK BERTANGGUNG JAWAB atas
+#	kerusakan yang anda perbuat sendiri, disarankan bertanya sebelum ingin mengeditnya.
+#	Dan selalu membaca deskripsi / penjelasan dari tiap line agar mengetahui fungsi fungsinya
+#
+#                                            =BIG WARNING=
+#	Mengganti Author resmi berarti melanggar Hak Cipta
+#	© Copyright 2015 Yusril Takeuchi
+#
+#+-------------------------------------------------------------------------------------------------------------+
+#
+#                                            =Extra Note=
+#  Kamu Membutuhkan Plugin Skript Tambahan Agar Skript Berjalan Lancar Atau Akan Terjadi Error
+#  Skript Addon Required: ExtrasSK
+#  http://dev.bukkit.org/bukkit-plugins/skript/forum/misc/66835-addon-extras-sk-1-5-added-crop-grow-trample-events/
+#
+#+-------------------------------------------------------------------------------------------------------------+
+
+
+#+-----------------------------------+
+#
+#		OPTIONS
+#
+#+-----------------------------------+	
+
+options:
+	
+	# --- Title And Prefix --- #
+	Title: &b&lYurani Warp
+	Prefix: &7[&bYurani Warp&7]
+	
+	# --- Copyright --- #
+	Author: &6Yusril Takeuchi
+	Version: &6V1.0
+	Inspiration: &eEnricoCraft135
+	
+	# --- Permission Node Admin --- #
+	YWarp-Create: ywarp.create
+	YWarp-Remove: ywarp.remove
+	YWarp-HelpAdm: ywarp.helpadm
+	YWarp-Reload: ywarp.reload
+	
+	# --- Permission Node Player --- #
+	YWarp-List: ywarp.list
+	YWarp-TP: ywarp.tp
+	YWarp-Help: ywarp.help
+	
+	# --- No Permission Message --- #
+	NoPerm: &cKamu tidak punya izin!
+	
+	# --- Addon --- #
+	ExtrasSk: ExtrasSK.jar
+	WildSkript: WildSkript.jar
+	SkQuery: SkQuery.jar
+	
+#+-----------------------------------+
+#
+#		VARIABLES
+#
+#+-----------------------------------+	
+	
+variables:
+	{ywarp.maxwarp} = 54 # --- Jangan di sentuh! --- # # --- Jika ingin mengubah Max Warp, isi dengan angka dibawah 54 --- #
+	{warp.max} = 0 # --- Jangan di sentuh! --- #
+	
+#+-----------------------------------+
+#
+#		COMMAND
+#
+#+-----------------------------------+	
+	
+command /ywarp [<text>] [<text>] [<text>]:
+	trigger:
+	
+		if arg 1 is not set:
+			player has permission "{@YWarp-HelpAdm}": # --- Hanya player yang memiliki akses permission tertentu yang bisa akses --- #
+				message "&a//&a&m----------&7[ {@Title} &7]&a&m----------&a\\"
+				message "&a/ywarp help &7- &bMelihat seluruh command Yurani Warp"
+				message "&a/ywarp create <name> <deskripsi> &7- &bMembuat sebuah Warp"
+				message "&a/ywarp remove <name> &7- &bMenghapus Warp yang telah ada"
+				message "&a/ywarp reload &7- &bReload config Skript"	
+				message "&a/ywarp list &7- &bMelihat daftar Warp"
+				message " "
+				message "&3Author&7: {@Author}"
+				message "&3Inspiration&7: {@Inspiration}"
+				message "&3Version&7: {@Version}"
+				stop
+			else:
+				message "&a//&a&m----------&7[ {@Title} &7]&a&m----------&a\\"
+				message "&a/ywarp help &7- &bMelihat seluruh command Yurani Warp"
+				message "&a/ywarp list &7- &bMelihat daftar Warp"
+				message " "
+				message "&3Author&7: {@Author}"
+				message "&3Inspiration&7: {@Inspiration}"
+				message "&3Version&7: {@Version}"
+				stop
+			
+		if arg 1 is "help":
+			player has permission "{@YWarp-HelpAdm}":
+				message "&a//&a&m----------&7[ {@Title} &7]&a&m----------&a\\"
+				message "&a/ywarp help &7- &bMelihat seluruh command Yurani Warp"
+				message "&a/ywarp create <name> <deskripsi> &7- &bMembuat sebuah Warp"
+				message "&a/ywarp remove <name> &7- &bMenghapus Warp yang telah ada"
+				message "&a/ywarp reload &7- &bReload config Skript"
+				message "&a/ywarp list &7- &bMelihat daftar Warp"
+				message " "
+				message "&3Author&7: {@Author}"
+				message "&3Version&7: {@Version}"
+				stop
+			else:
+				message "&a//&a&m----------&7[ {@Title} &7]&a&m----------&a\\"
+				message "&a/ywarp help &7- &bMelihat seluruh command Yurani Warp"
+				message "&a/ywarp list &7- &bMelihat daftar Warp"
+				message " "
+				message "&3Author&7: {@Author}"
+				message "&3Version&7: {@Version}"
+				stop
+				
+#+-----------------------------------+
+#
+#		CREATE WARP
+#
+#+-----------------------------------+	
+				
+		if arg 1 is "create":
+			if arg 2 is set:
+				if arg 3 is set:
+					if {ywarps.%arg 2%} is not set:
+					
+						# --- Jika jumlah Warp sudah mencapai MaxWarp yaitu 54, maka tidak bisa membuat Warp lagi --- #
+						# --- Angka 54 jangan pernah diubah menjadi lebih besar dari angka tersebut ! --- #
+						if {warp.max} is less than {ywarp.maxwarp}:
+							player has permission "{@YWarp-Create}":
+								set {ywarps.%arg 2%} to location of the player
+								set {ywarps.deskripsi.%arg 2%} to arg 3
+								set {ywarps.pengunjung.%arg 2%} to 0
+								set {ywarps.icon.%arg 2%} to paper
+								set {ywarps.world.%arg 2%} to player's world
+								add 1 to {warp.max} # --- Jangan di sentuh ! --- #
+								message "{@Prefix} &aLokasi Warp &7(&c%arg 2%&7) &atelah di set ditempat &7(&c%location of the player%&7)"
+								play "FIREWORK_LAUNCH" only to player with pitch 1 and volume 1
+								play "FIREWORK_LARGE_BLAST" only to player with pitch 1 and volume 1
+								play "FIREWORK_TWINKLE" only to player with pitch 1 and volume 1
+								add arg 2 to {ywarpslist::*} # --- Jangan di sentuh --- #
+							else:
+								message "{@Prefix} {@NoPerm}"
+								stop
+						else:
+							message "{@Prefix} &cWarp sudah penuh!"
+							message "{@Prefix} &cHapus sebagian dengan &7(&c/ywarp remove <name>&7)"
+							stop
+					else:
+						message "{@Prefix} &cWarp sudah pernah dibuat!"
+						message "{@Prefix} &cGunakan &7(&c/ywarp remove <namewarp>&7) &auntuk menghapus."
+						stop
+				else:
+					message "{@Prefix} &cMasukkan deskripsi Warp!"
+					stop
+			else:
+				message "{@Prefix} &cMasukan nama Warp!"
+				stop
+					
+#+-----------------------------------+
+#
+#		REMOVE WARP
+#
+#+-----------------------------------+		
+				
+		if arg 1 is "remove":
+			if {ywarps.%arg 2%} is set:
+				player has permission "{@YWarp-Remove}":
+					message "{@Prefix} &aWarp berhasil dihapus!"
+					remove arg 2 from {ywarpslist::*}
+					delete {ywarps.world.%arg 2%}
+					delete {ywarps.%arg 2%}
+					delete {ywarps.pengunjung.%arg 2%}
+					delete {ywarps.deskripsi.%arg 2%}
+					delete {ywarps.icon.%arg 2%}
+					play "NOTE_BASS" only to player with pitch 0.5 volume 1
+				else:
+					message "{@Prefix} {@NoPerm}"
+			else:
+				message "{@Prefix} &cWarp belum pernah dibuat!"
+				message "{@Prefix} &cGunakan &7(&c/ywarp create <name> <deskripsi>&7) &auntuk membuat."
+				stop
+				
+#+-----------------------------------+
+#
+#		RELOAD COMMAND
+#
+#+-----------------------------------+
+				
+		if arg 1 is "reload":
+			player has permission "{@YWarp-Reload}":
+				play "NOTE_BASS" only to player with pitch 0.5 volume 1
+				message "{@Prefix} &aPersiapan untuk reload skript!"
+		
+				# --- Delay 20 ticks --- #
+				wait 20 ticks
+				play "NOTE_BASS" only to player with pitch 0.5 volume 1
+				message "{@Prefix} &a1"
+				wait 20 ticks
+				play "NOTE_BASS" only to player with pitch 0.5 volume 1
+				message "{@Prefix} &a2"
+				wait 20 ticks
+				play "NOTE_BASS" only to player with pitch 0.5 volume 1
+				message "{@Prefix} &a3"
+				wait 20 ticks
+				
+				# --- Memaksa console untuk mereload skript ini --- #
+				execute console command "/sk reload YWarp"
+				play "LEVEL_UP" only to player with pitch 1 and volume 1
+				message "{@Prefix} &aBerhasil reload &cYurani Warp!"
+				
+			# --- Bagian ini jika player tidak punya permission admin tapi mau mengaksesnya --- #
+			else:
+				message "{@Prefix} &cMaaf kamu tidak punya izin!"
+				
+#+-----------------------------------+
+#
+#		WARP TELEPORTATION
+#
+#+-----------------------------------+	
+				
+		if arg 1 is "tp":
+			if {ywarps.%arg 2%} is set:
+				player has permission "{@YWarp-TP}":
+					message "{@Prefix} &aTeleportasi menuju &7(&c%arg 2%&7)"
+					add 1 to {ywarps.pengunjung.%arg 2%}
+					wait 1 second
+					teleport player to {ywarps.%arg 2%}
+					play "LEVEL_UP" only to player with pitch 1.5 volume 1
+				else:
+					message "{@Prefix} {@NoPerm}"
+			else:
+				message "{@Prefix} &cWarp tidak di set!"
+				
+#+-----------------------------------+
+#
+#		WARP LIST
+#
+#+-----------------------------------+	
+
+					# --- BAGIAN INI JANGAN DI SENTUH ! --- # 
+		if arg 1 is "list":
+			player has permission "{@YWarp-List}":
+				wait 5 tick
+				open chest with 6 rows named "&7&m[-- &a&lYWarps List&7&m--]" to player
+				loop {ywarpslist::*}:
+					if {ywarps.pengunjung.%loop-value%} is not set:
+						set {ywarps.pengunjung.%loop-value%} to 0
+					add 1 to {_loop-num}
+					if player has permission "{@YWarp-List}":
+						set {_y} to {_loop-num} - 1
+						play "STEP_WOOD" only to player with pitch 0.5 volume 2.5
+						format slot {_y} of player with {ywarps.icon.%loop-value%} named "&6Warp &a%loop-value%" with lore "&7/--------------------------------\||&6%{ywarps.deskripsi.%loop-value%}%||&7\--------------------------------/||&bPengunjung : &a%{ywarps.pengunjung.%loop-value%}%||&bKoordinat : &b%{ywarps.world.%loop-value%}% &a%{ywarps.%loop-value%}%" to close then run "sudo %player% ywarp tp %loop-value%"
+						wait 1 tick
+					
+#+-----------------------------------+
+#
+#		ALIASES COMMAND BUG
+#
+#+-----------------------------------+	
+					
+on command "/warp":
+	cancel event
+	execute player command "/ywarp help"
+on command "/warp list":
+	cancel event
+	execute player command "/ywarp list"
+						
+						
+#+-----------------------------------+
+#
+#		WARP ADDON
+#
+#+-----------------------------------+
+
+# --- Sukses Load --- #
+on load:
+	message "{@Prefix} &aYurani Warp Berhasil Di Load! {@Version}" to the console
+	
+# --- Membutuhkan Extras Sk --- #
+on load:
+	if file "plugins/{@ExtrasSk}" exists:
+		message "{@Prefix} &aExtrasSK Berhasil dihook! More Sound, More Awesome!!" to the console
+		stop
+	else:
+		message "{@Prefix} &cExtrasSK Tidak terdeteksi, Akan segera di disable" to the console
+		execute console command "/sk disable YWarp"
+		stop
+
+# --- Membutuhkan WildSkript --- #
+on load:
+	if file "plugins/{@WildSkript}" exists:
+		message "{@Prefix} &aWildSkript Berhasil dihook! Let's Fun The Game!!" to the console
+		stop
+	else:
+		message "{@Prefix} &cWildSkript Tidak terdeteksi, Akan segera di disable" to the console
+		execute console command "/sk disable YWarp"
+		stop
+		
+# --- Membutuhkan SkQuery --- #
+on load:
+	if file "plugins/{@SkQuery}" exists:
+		message "{@Prefix} &aSkQuery Berhasil dihook! More Awesome Menu!!" to the console
+		stop
+	else:
+		message "{@Prefix} &cSkQuery Tidak terdeteksi, Akan segera di disable" to the console
+		execute console command "/sk disable YWarp"
+		stop
+
+		
+#+-----------------------------------+
+#
+#		AUTO UPDATE
+#
+#+-----------------------------------+	
+
+on load:
+	if text from "http://yusriltakeuchi.com/File%20Kosong/YWarpVer.txt" is not "1.0":
+		broadcast "{@Prefix} &aUpdating &bYurani Warp!"
+		download from "http://yusriltakeuchi.com/File%Kosong/YWarp.sk" to "plugins/Skript/scripts/YWarp.sk"
+		wait 5 ticks
+		execute console command "/skript reload YWarp"
+		broadcast "{@Prefix} &Finishing Update &bYurani Warp!"
